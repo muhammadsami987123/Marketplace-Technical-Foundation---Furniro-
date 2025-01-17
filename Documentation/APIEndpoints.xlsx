@@ -1,0 +1,70 @@
+import pandas as pd
+
+# Re-creating the data for the API Endpoints
+data = {
+    "Endpoint": [
+        "/products",
+        "/products/:id",
+        "/products",
+        "/products/:id",
+        "/products/:id",
+        "/users",
+        "/users/login",
+        "/orders",
+        "/orders/:id",
+        "/shipment/:orderId",
+        "/payment/process"
+    ],
+    "Method": [
+        "GET", "GET", "POST", "PUT", "DELETE",
+        "POST", "POST", "POST", "GET", "GET", "POST"
+    ],
+    "Purpose": [
+        "Fetch all available products.",
+        "Fetch a single product by ID.",
+        "Add a new product.",
+        "Update an existing product.",
+        "Delete a product by ID.",
+        "Register a new user.",
+        "Authenticate a user.",
+        "Place a new order.",
+        "Fetch an order by ID.",
+        "Fetch shipment tracking info.",
+        "Process a payment."
+    ],
+    "Payload (if applicable)": [
+        "None",
+        "None",
+        '{"name": "Chair", "price": 1500, "stock": 10}',
+        '{"price": 2000, "stock": 8}',
+        "None",
+        '{"name": "Ali", "email": "ali@example.com"}',
+        '{"email": "ali@example.com", "password": "1234"}',
+        '{"userId": 101, "products": [{"id": 1, "qty": 2}]}',
+        "None",
+        "None",
+        '{"orderId": 123, "amount": 3000}'
+    ],
+    "Response Example": [
+        '[{"id": 1, "name": "Chair", "price": 1500}]',
+        '{"id": 1, "name": "Chair", "price": 1500, "stock": 10}',
+        '{"status": "success", "productId": 1}',
+        '{"status": "success"}',
+        '{"status": "success"}',
+        '{"userId": 101, "status": "success"}',
+        '{"status": "success", "token": "abcd1234"}',
+        '{"orderId": 123, "status": "success"}',
+        '{"orderId": 123, "status": "Pending", "total": 3000}',
+        '{"orderId": 123, "status": "Out for Delivery", "ETA": "15 mins"}',
+        '{"paymentId": 567, "status": "success"}'
+    ]
+}
+
+# Creating the DataFrame
+df = pd.DataFrame(data)
+
+# Saving to Excel
+file_path = "/mnt/data/APIEndpoints.xlsx"
+df.to_excel(file_path, index=False)
+
+file_path
